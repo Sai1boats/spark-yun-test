@@ -15,3 +15,4 @@ class Login(BasePage):
 
     def login(self):
         self.page.get_by_role("button").click()
+

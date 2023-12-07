@@ -23,5 +23,6 @@ class BasePage(object):
     def wait(self,time:float):
         self.page.wait_for_timeout(time*1000)
 
-
+    def check_page(self):
+        return self.page
 
