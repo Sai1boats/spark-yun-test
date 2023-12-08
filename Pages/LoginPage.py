@@ -4,7 +4,7 @@ from Pages.BasePage import BasePage
 class Login(BasePage):
     def __init__(self):
         super().__init__()
-    def gotos(self):
+    def goto_homepage(self):
         self.page.goto('http://127.0.0.1:9998')
 
     def inputUser(self,user:str):

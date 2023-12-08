@@ -3,7 +3,7 @@ import pytest
 from Pages.EnginePage import Engine
 def test_login():
     p = Engine()
-    p.gotos()
+    p.goto_homepage()
     p.inputUser('Sailboats')
     p.inputPassword('welcome1')
     p.click_login_button()
