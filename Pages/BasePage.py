@@ -11,7 +11,7 @@ class BasePage(object):
             elif browser_type.lower() == 'firefox':
                 page=pw.firefox.launch(headless=False, slow_mo=slow_mos).new_page()
             else:
-                print("请检查浏览器类型,Windows中支持Chromium或Firefox，Mac中支持Chromium,Firefox或Webkit(暂不支持)")
+                print("请检查浏览器类型,支持Chromium或Firefox")
                 sys.exit()
         except Exception as e:
             print("启动浏览器出现错误：", e)
@@ -23,6 +23,6 @@ class BasePage(object):
     def wait(self,time:float):
         self.page.wait_for_timeout(time*1000)
 
-    def check_page(self):
+    def view_page(self):
         return self.page
 
