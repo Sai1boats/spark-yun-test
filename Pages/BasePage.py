@@ -1,28 +1,21 @@
-import sys
+class BasePage:
 
-from playwright.sync_api import sync_playwright
-class BasePage(object):
-    @classmethod
-    def init_playwright(cls, browser_type: str = "chromium", slow_mos: float = 50.0):
-        pw = sync_playwright().start()
-        try:
-            if browser_type.lower() == 'chromium':
-                page =pw.chromium.launch(headless=False, slow_mo=slow_mos).new_page()
-            elif browser_type.lower() == 'firefox':
-                page=pw.firefox.launch(headless=False, slow_mo=slow_mos).new_page()
-            else:
-                print("请检查浏览器类型,支持Chromium或Firefox")
-                sys.exit()
-        except Exception as e:
-            print("启动浏览器出现错误：", e)
-            sys.exit()
-        return page
-    def __init__(self):
-        self.page = self.init_playwright()
+    def __init__(self, page):
+        self.page = page
 
-    def wait(self,time:float):
-        self.page.wait_for_timeout(time*1000)
+    def wait(self, time: float):
+        self.page.wait_for_timeout(time * 1000)
 
     def view_page(self):
         return self.page
 
+    def locator(self, selector, text=None, attributes=None):
+        if text is not None:
+            return self.page.locator(selector, has_text=text)
+        elif attributes is not None:
+            return self.page.locator(selector, has=attributes)
+        else:
+            return self.page.locator(selector)
+
+    def screenshot(self):
+        self.screenshot()
