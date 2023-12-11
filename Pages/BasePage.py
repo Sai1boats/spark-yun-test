@@ -18,4 +18,5 @@ class BasePage:
             return self.page.locator(selector)
 
     def screenshot(self):
+        #todo 实现截图的方法，现在该方法有些问题
         self.screenshot()
