@@ -16,7 +16,7 @@ def browser_init():
 def setUp(browser_init):
     page = browser_init.new_page()
     p = Login(page)
-    p.goto_homepage('http://127.0.0.1:9998')
+    p.goto_homepage('http://60.188.248.205:17006')
     return p
 
 
@@ -36,6 +36,7 @@ class TestLoginPage:
         self.p.inputUser('admin')
         self.p.inputPassword('admin123')
         self.p.click_login_button()
+        self.p.wait(1)
         assert '/home/user-center' in self.p.view_page().url
         self.p.click_logout_button()
 
@@ -52,5 +53,6 @@ class TestLoginPage:
         self.p.inputUser('Sailboats')
         self.p.inputPassword('welcome')
         self.p.click_login_button()
+        self.p.wait(1)
         locator = self.p.check_wrong_toast()
         assert locator
