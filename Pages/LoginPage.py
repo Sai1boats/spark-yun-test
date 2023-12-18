@@ -21,14 +21,15 @@ class Login(BasePage):
         self.page.click('.el-avatar')
         self.page.click('.zqy-home__menu-option:has-text("退出登录")')
 
-    def check_user_filled(self):
+    def check_user_filled_prompt(self):
         locator = self.page.locator('.el-form-item__error', has_text='请输入账号')
         return locator
 
-    def check_password_filled(self):
+    def check_password_filled_prompt(self):
         locator = self.page.locator('.el-form-item__error', has_text='请输入密码')
         return locator
 
     def check_wrong_toast(self):
         locator = self.page.locator('el-message--error')
         return locator
+
