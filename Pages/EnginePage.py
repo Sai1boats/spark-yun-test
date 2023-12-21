@@ -5,8 +5,7 @@ class Engine(Login):
         super().__init__(page)
 
     def click_add_engine_button(self):
-        self.page.get_by_role('button',name='添加集群').click()
+        self.page.locator('xpath=/html/body/div[1]/div/div[2]/div[2]/div[1]/button')
     def check_popup(self):
         locator=self.locator('el-dialog__header')
         return locator
-    # def

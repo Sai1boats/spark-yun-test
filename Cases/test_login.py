@@ -1,6 +1,8 @@
+import re
+
 import allure
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 from Pages.LoginPage import Login
 
@@ -26,11 +28,13 @@ class TestLoginPage:
     #
     def test_login_without_content(self, setup):
         self.p = setup
+        self.p.wait(3)
         self.p.click_login_button()
         locator1 = self.p.check_user_filled_prompt()
-        assert locator1
         locator2 = self.p.check_password_filled_prompt()
-        assert locator2
+        expect(locator1).to_be_visible()
+        expect(locator2).to_be_visible()
+        self.p.screenshots()
 
     def test_login_admin_success(self, setup):
         self.p = setup
@@ -38,7 +42,7 @@ class TestLoginPage:
         self.p.inputPassword('admin123')
         self.p.click_login_button()
         self.p.wait(1)
-        assert '/home/user-center' in self.p.view_page().url
+        expect(self.p.page).to_have_url(re.compile(".*/home/user-center"))
         self.p.click_logout_button()
 
     def test_login_user_success(self, setup):
@@ -47,22 +51,25 @@ class TestLoginPage:
         self.p.inputPassword('welcome1')
         self.p.click_login_button()
         self.p.wait(1)
-        assert '/home/computer-group' in self.p.view_page().url
+        expect(self.p.page).to_have_url(re.compile(".*/home/computer-group"))
         self.p.click_logout_button()
 
     def test_login_wrong_password(self, setup):
         self.p = setup
         self.p.inputUser('Sailboats')
         self.p.inputPassword('welcome')
+        self.p.wait(5)
         self.p.click_login_button()
         locator = self.p.check_wrong_toast()
-        assert locator
+        expect(locator).to_be_visible(timeout=2000)
 
     def test_login_wrong_username(self, setup):
         self.p = setup
-        self.p.inputUser('test')
-        self.p.inputPassword('test')
+        self.p.inputUser('no_toast')
+        self.p.inputPassword('no_toast')
+        self.p.wait(5)
         self.p.click_login_button()
         locator = self.p.check_wrong_toast()
-        assert locator
-
+        expect(locator).to_be_visible(timeout=2000)
+        # print the context of toast
+        # print(locator.inner_text())

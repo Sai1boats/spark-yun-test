@@ -9,7 +9,10 @@ from Pages.LoginPage import Login
 def browser_init():
     browser=sync_playwright().start().chromium
     context = browser.launch(headless=False, slow_mo=50).new_context()
-    return context
+    page=context.new_page()
+    p=Engine(page)
+    p.login()
+
 
 @pytest.fixture(scope='function')
 def setUp(browser_init):
@@ -19,6 +22,6 @@ def setUp(browser_init):
     return p
 
 class TestEnginePage:
-    def test_show_add_engine_popup(self,setUp):
+    def test_show_popup(self,setUp):
         page=setUp
         page.click_add_engine_button()
