@@ -21,12 +21,20 @@ class BasePage:
     #     else:
     #         return self.page.locator(selector)
 
-    def screenshots(self, full_page: bool = False, screenshot_dir: str = "../Screenshots",
+    def screenshots(self, full_page: bool = False, screenshot_dir: str = None,
                     screenshot_name: str = None):
+        """
+        :param full_page: 是否截取全部页面
+        :param screenshot_dir: 文件存储的路径，默认路径为用例执行目录上层的Screenshots中
+        :param screenshot_name: 截图名称，默认为截图当前时间
+        :return: None
+        """
+        if screenshot_dir is None:
+            screenshot_dir = os.path.dirname(os.getcwd())
         if screenshot_name is None:
             timestamp = str(time.strftime('%Y-%m-%d_%H:%M:%S', time.localtime(time.time())))
             screenshot_name = timestamp + ".jpg"
-        screenshot_path = os.path.join(screenshot_dir, screenshot_name)
+        screenshot_path = os.path.join(screenshot_dir,'Screenshots', screenshot_name)
         self.page.screenshot(full_page=full_page, path=screenshot_path)
 
     def goto_homepage(self, url:str):

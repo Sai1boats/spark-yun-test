@@ -2,9 +2,13 @@ import re
 
 import allure
 import pytest
+import yaml
 from playwright.sync_api import sync_playwright, expect
 
 from Pages.LoginPage import Login
+
+with open('../test_data.yaml', 'r') as file:
+    data = yaml.safe_load(file)
 
 
 @pytest.fixture(scope='module')
@@ -18,14 +22,14 @@ def browser_init():
 def setup(browser_init):
     page = browser_init.new_page()
     p = Login(page)
-    p.goto_homepage('http://127.0.0.1:9998')
+    p.goto_homepage(data['url'])
     p.wait(1)
     return p
 
 
 @allure.feature('Login')
 class TestLoginPage:
-    #
+
     def test_login_without_content(self, setup):
         self.p = setup
         self.p.wait(3)
@@ -34,30 +38,32 @@ class TestLoginPage:
         locator2 = self.p.check_password_filled_prompt()
         expect(locator1).to_be_visible()
         expect(locator2).to_be_visible()
-        self.p.screenshots()
 
-    def test_login_admin_success(self, setup):
+    @pytest.mark.parametrize('username,password', [(data['admin_user'], data['admin_passwd'])])
+    def test_login_admin_success(self, setup, username, password):
         self.p = setup
-        self.p.inputUser('admin')
-        self.p.inputPassword('admin123')
+        self.p.inputUser(username)
+        self.p.inputPassword(password)
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/user-center"))
         self.p.click_logout_button()
 
-    def test_login_user_success(self, setup):
+    @pytest.mark.parametrize('username,password', [(data['test_user'], data['test_passwd'])])
+    def test_login_user_success(self, setup, username, password):
         self.p = setup
-        self.p.inputUser('Sailboats')
-        self.p.inputPassword('welcome1')
+        self.p.inputUser(username)
+        self.p.inputPassword(password)
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/computer-group"))
         self.p.click_logout_button()
 
-    def test_login_wrong_password(self, setup):
+    @pytest.mark.parametrize('username,password', [(data['test_user'], data['admin_passwd'])])
+    def test_login_wrong_password(self, setup, username, password):
         self.p = setup
-        self.p.inputUser('Sailboats')
-        self.p.inputPassword('welcome')
+        self.p.inputUser(username)
+        self.p.inputPassword(password)
         self.p.wait(5)
         self.p.click_login_button()
         locator = self.p.check_wrong_toast()
@@ -65,11 +71,9 @@ class TestLoginPage:
 
     def test_login_wrong_username(self, setup):
         self.p = setup
-        self.p.inputUser('no_toast')
-        self.p.inputPassword('no_toast')
+        self.p.inputUser('toast_test_aaaa')
+        self.p.inputPassword('toast_test_bbb')
         self.p.wait(5)
         self.p.click_login_button()
         locator = self.p.check_wrong_toast()
-        expect(locator).to_be_visible(timeout=2000)
-        # print the context of toast
-        # print(locator.inner_text())
+        expect(locator).to_be_visible(timeout=2000)  # print the context of toast  # print(locator.inner_text())
