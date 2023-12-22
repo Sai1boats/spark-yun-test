@@ -35,6 +35,7 @@ class BasePage:
             timestamp = str(time.strftime('%Y-%m-%d_%H:%M:%S', time.localtime(time.time())))
             screenshot_name = timestamp + ".jpg"
         screenshot_path = os.path.join(screenshot_dir,'Screenshots', screenshot_name)
+        print(screenshot_path)
         self.page.screenshot(full_page=full_page, path=screenshot_path)
 
     def goto_homepage(self, url:str):
