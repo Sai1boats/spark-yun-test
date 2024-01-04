@@ -29,51 +29,51 @@ def setup(browser_init):
 
 @allure.feature('Login')
 class TestLoginPage:
-
+    @allure.title("测试没有账户密码直接登录提示")
     def test_login_without_content(self, setup):
         self.p = setup
         self.p.wait(3)
         self.p.click_login_button()
-        locator1 = self.p.locator_user_filled_prompt()
-        locator2 = self.p.locator_password_filled_prompt()
-        expect(locator1).to_be_visible()
-        expect(locator2).to_be_visible()
+        expect(self.p.locator_user_filled_prompt()).to_be_visible()
+        expect(self.p.locator_password_filled_prompt()).to_be_visible()
 
+    @allure.title("测试成功登录管理员账号")
     @pytest.mark.parametrize('username,password', [(test_data['admin_user'], test_data['admin_passwd'])])
     def test_login_admin_success(self, setup, username, password):
         self.p = setup
-        self.p.inputUser(username)
-        self.p.inputPassword(password)
+        self.p.input_user(username)
+        self.p.input_password(password)
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/user-center"))
         self.p.click_logout_button()
 
+    @allure.title("测试成功登录普通用户")
     @pytest.mark.parametrize('username,password', [(test_data['test_user'], test_data['test_passwd'])])
     def test_login_user_success(self, setup, username, password):
         self.p = setup
-        self.p.inputUser(username)
-        self.p.inputPassword(password)
+        self.p.input_user(username)
+        self.p.input_password(password)
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/computer-group"))
         self.p.click_logout_button()
 
+    @allure.title("测试错误密码登录账户")
     @pytest.mark.parametrize('username,password', [(test_data['test_user'], test_data['admin_passwd'])])
     def test_login_wrong_password(self, setup, username, password):
         self.p = setup
-        self.p.inputUser(username)
-        self.p.inputPassword(password)
-        self.p.wait(5)
+        self.p.input_user(username)
+        self.p.input_password(password)
+        self.p.wait(3)
         self.p.click_login_button()
-        locator = self.p.locator_wrong_toast()
-        expect(locator).to_be_visible(timeout=2000)
+        expect(self.p.locator_wrong_toast()).to_be_visible(timeout=2000)
 
+    @allure.title("测试错误用户名登录账户")
     def test_login_wrong_username(self, setup):
         self.p = setup
-        self.p.inputUser('toast_test_aaaa')
-        self.p.inputPassword('toast_test_bbb')
-        self.p.wait(5)
+        self.p.input_user('toast_test_aaaa')
+        self.p.input_password('toast_test_bbb')
+        self.p.wait(3)
         self.p.click_login_button()
-        locator = self.p.locator_wrong_toast()
-        expect(locator).to_be_visible(timeout=2000)  # print the context of toast /n print(locator.inner_text())
+        expect(self.p.locator_wrong_toast()).to_be_visible(timeout=2000)  # print the context of toast /n print(locator.inner_text())
