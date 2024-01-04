@@ -63,3 +63,7 @@ class BasePage:
         self.page.get_by_placeholder('账号/邮箱/手机号').fill(username)
         self.page.get_by_placeholder('密码').fill(password)
         self.page.get_by_role("button").click()
+
+    def logout(self):
+        self.page.click('.el-avatar')
+        self.page.click('.zqy-home__menu-option:has-text("退出登录")')

@@ -11,11 +11,15 @@ with open('../test_data.yaml', 'r') as file:
     test_data = yaml.safe_load(file)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='class')
 def browser_init():
-    browser = sync_playwright().start().chromium
-    context = browser.launch(headless=False, slow_mo=50).new_context()
-    return context
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=False, slow_mo=50)
+        context = browser.new_context()
+        yield context
+        context.close()
+        browser.close()
+
 
 
 @pytest.fixture(scope='function')
@@ -46,7 +50,7 @@ class TestLoginPage:
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/user-center"))
-        self.p.click_logout_button()
+        self.p.logout()
 
     @allure.title("测试成功登录普通用户")
     @pytest.mark.parametrize('username,password', [(test_data['test_user'], test_data['test_passwd'])])
@@ -57,7 +61,7 @@ class TestLoginPage:
         self.p.click_login_button()
         self.p.wait(1)
         expect(self.p.page).to_have_url(re.compile(".*/home/computer-group"))
-        self.p.click_logout_button()
+        self.p.logout()
 
     @allure.title("测试错误密码登录账户")
     @pytest.mark.parametrize('username,password', [(test_data['test_user'], test_data['admin_passwd'])])

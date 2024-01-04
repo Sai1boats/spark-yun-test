@@ -16,9 +16,7 @@ class Login(BasePage):
     def click_login_button(self):
         self.page.get_by_role("button").click()
 
-    def click_logout_button(self):
-        self.page.click('.el-avatar')
-        self.page.click('.zqy-home__menu-option:has-text("退出登录")')
+
 
     def locator_user_filled_prompt(self) -> Locator:
         locator = self.page.locator('xpath=//*[@id="app"]/div/div[2]/div[2]/div/form/div[1]/div/div[2]',

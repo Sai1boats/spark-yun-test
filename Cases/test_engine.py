@@ -9,11 +9,15 @@ with open('../test_data.yaml', 'r') as file:
     test_data = yaml.safe_load(file)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='class')
 def browser_init():
-    browser = sync_playwright().start().chromium
-    context = browser.launch(headless=False, slow_mo=50).new_context()
-    return context
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=False, slow_mo=50)
+        context = browser.new_context()
+        yield context
+        context.close()
+        browser.close()
+
 
 
 @pytest.fixture(scope='function')
@@ -23,8 +27,8 @@ def setup(browser_init):
     engine.goto_homepage(test_data['url'])
     engine.login(test_data['test_user'], test_data['test_passwd'])
     engine.goto_computer_group(test_data['url'])
-    return engine
-
+    yield engine
+    engine.logout()
 
 class TestEnginePage:
     @allure.title("测试添加计算引擎弹窗正常弹出")
@@ -34,11 +38,15 @@ class TestEnginePage:
         self.p.locator_add_engine_button().click()
         self.p.wait(1)
         expect(self.p.locator_add_engine_popup()).to_be_visible()
+        self.p.click_cancel()
+
+
 
     @allure.title("添加计算引擎成功")
     @pytest.mark.parametrize('name,types,remark', [('测试计算引擎1', 'yarn', '测试计算引擎1备注')])
     def test_add_engine_success(self, setup, name, types, remark):
         self.p = setup
+        self.p.wait(2)
         self.p.locator_add_engine_button().click()
         self.p.input_name(name)
         self.p.choose_type(types)

@@ -42,3 +42,5 @@ class Engine(Login):
 
     def click_confirm(self):
         self.page.locator('xpath=/html/body/div[3]/div/div/footer/button[2]').click()
+    def click_cancel(self):
+        self.page.locator('xpath=/html/body/div[3]/div/div/footer/button[1]').click()
