@@ -1,3 +1,5 @@
+import re
+
 import allure
 import pytest
 import yaml
@@ -48,7 +50,7 @@ class TestEnginePage:
         self.p = setup
         self.p.wait(2)
         self.p.locator_add_engine_button().click()
-        self.p.input_name(name)
+        self.p.locator_popup_input_name().fill(name)
         self.p.choose_type(types)
         self.p.input_remark(remark)
         self.p.click_confirm()
@@ -56,3 +58,43 @@ class TestEnginePage:
         expect(self.p.locator_added_engine_name()).to_contain_text(name)
         expect(self.p.locator_added_engine_type()).to_contain_text(types)
         expect(self.p.locator_added_engine_remark()).to_contain_text(remark)
+
+    @allure.title("进入计算引擎详情页并配置节点")
+    @pytest.mark.parametrize('nodename',['测试计算引擎节点'])
+    def test_conf_engine_success(self, setup,nodename):
+        self.p = setup
+        self.p.locator_added_engine_name().click()
+        self.p.wait(2)
+        expect(self.p.page).to_have_url(re.compile(".*/home/computer-pointer"))
+        self.p.locator_add_node_button().click()
+        self.p.locator_add_node_name().fill(nodename)
+        self.p.locator_add_node_host().fill(test_data['engine_host'])
+        self.p.locator_add_node_username().fill(test_data['engine_username'])
+        self.p.choose_add_node_type(types=test_data['engine_type'],password=test_data['engine_password'])
+        self.p.locator_add_node_remark().fill('自动化测试')
+        self.p.click_add_node_confirm()
+        self.p.wait(1)
+        expect(self.p.locator_added_node_name()).to_contain_text(nodename)
+        expect(self.p.locator_added_node_host()).to_contain_text(str(test_data['engine_host']))
+        expect(self.p.locator_added_node_status()).to_contain_text('未安装')
+
+    @allure.title("测试节点检测功能")
+    def test_conf_engine_status(self,setup):
+        self.p = setup
+        self.p.locator_added_engine_name().click()
+        self.p.wait(2)
+        expect(self.p.page).to_have_url(re.compile(".*/home/computer-pointer"))
+        self.p.locator_added_node_operation().click()
+        self.p.locator_added_node_detection().click()
+        self.p.wait(2)
+        expect(self.p.locator_added_node_status()).to_contain_text('启动')
+        self.p.goto_computer_group(test_data['url'])
+        self.p.wait(1)
+        self.p.locator_added_engine_detection().click()
+        self.p.wait(3)
+        expect(self.p.locator_added_engine_status()).to_contain_text('可用')
+
+
+
+
+

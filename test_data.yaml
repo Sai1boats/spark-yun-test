@@ -6,3 +6,8 @@ admin_passwd: admin123
 #tester username and password
 test_user: Sailboats
 test_passwd: welcome1
+#engine connection information
+engine_host:
+engine_username: zhiqingyun
+engine_type: 令牌
+engine_password:

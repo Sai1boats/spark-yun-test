@@ -19,15 +19,15 @@ class Login(BasePage):
 
 
     def locator_user_filled_prompt(self) -> Locator:
-        locator = self.page.locator('xpath=//*[@id="app"]/div/div[2]/div[2]/div/form/div[1]/div/div[2]',
+        return self.page.locator('xpath=//*[@id="app"]/div/div[2]/div[2]/div/form/div[1]/div/div[2]',
                                     has_text='请输入账号')
-        return locator
+
 
     def locator_password_filled_prompt(self) -> Locator:
-        locator = self.page.locator('xpath=//*[@id="app"]/div/div[2]/div[2]/div/form/div[2]/div/div[2]',
+        return self.page.locator('xpath=//*[@id="app"]/div/div[2]/div[2]/div/form/div[2]/div/div[2]',
                                     has_text='请输入密码')
-        return locator
+
 
     def locator_wrong_toast(self) -> Locator:
-        locator = self.page.locator('xpath=/html/body/div[4]', has_text='账号或者密码不正确')
-        return locator
+        return self.page.locator('xpath=/html/body/div[4]', has_text='账号或者密码不正确')
+

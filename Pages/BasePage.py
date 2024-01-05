@@ -1,5 +1,7 @@
 import os
 import time
+import re
+
 
 
 class BasePage:
@@ -20,6 +22,7 @@ class BasePage:
     #         return self.page.locator(selector, has=attributes)
     #     else:
     #         return self.page.locator(selector)
+
 
     def screenshots(self, full_page: bool = False, screenshot_dir: str = None,
                     screenshot_name: str = None):
