@@ -28,10 +28,10 @@ def setup(browser_init):
     login = Login(page)
     login.goto_homepage(test_data['url'])
     login.wait(1)
-    return login
+    yield login
 
 
-@allure.feature('Login')
+@allure.feature('测试登录部分')
 class TestLoginPage:
     @allure.title("测试没有账户密码直接登录提示")
     def test_login_without_content(self, setup):
@@ -40,17 +40,6 @@ class TestLoginPage:
         self.p.click_login_button()
         expect(self.p.locator_user_filled_prompt()).to_be_visible()
         expect(self.p.locator_password_filled_prompt()).to_be_visible()
-
-    @allure.title("测试成功登录管理员账号")
-    @pytest.mark.parametrize('username,password', [(test_data['admin_user'], test_data['admin_passwd'])])
-    def test_login_admin_success(self, setup, username, password):
-        self.p = setup
-        self.p.input_user(username)
-        self.p.input_password(password)
-        self.p.click_login_button()
-        self.p.wait(1)
-        expect(self.p.page).to_have_url(re.compile(".*/home/user-center"))
-        self.p.logout()
 
     @allure.title("测试成功登录普通用户")
     @pytest.mark.parametrize('username,password', [(test_data['test_user'], test_data['test_passwd'])])

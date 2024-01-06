@@ -32,6 +32,7 @@ def setup(browser_init):
     yield engine
     engine.logout()
 
+@allure.feature("测试计算引擎部分")
 class TestEnginePage:
     @allure.title("测试添加计算引擎弹窗正常弹出")
     def test_show_popup(self, setup):

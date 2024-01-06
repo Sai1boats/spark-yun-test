@@ -26,7 +26,7 @@ def run_allure(current_dir):
 
 
 if __name__ == '__main__':
-    fi = {1: '.', 2: 'test_login.py', 3: 'test', 4: 'test_—engine'}
+    fi = {1: '.', 2: 'test_login.py', 3: 'test_admin.py', 4: 'test_engine'}
     a = eval(input("选择要执行的用例：\n0.初始化requirements\n1.全部用例\n2.登录界面\n3.后台管理\n4.计算引擎\n->:"))
     current_dir = os.path.dirname(os.path.abspath(__file__))
     system = platform.system()

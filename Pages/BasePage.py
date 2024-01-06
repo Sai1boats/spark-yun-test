@@ -12,18 +12,6 @@ class BasePage:
     def wait(self, wait_time_by_second: float):
         self.page.wait_for_timeout(wait_time_by_second * 1000)
 
-    # def view_page(self) -> Page:
-    #     return self.page
-
-    # def locator(self, selector, text=None, attributes=None) -> Locator:
-    #     if text is not None:
-    #         return self.page.locator(selector, has_text=text)
-    #     elif attributes is not None:
-    #         return self.page.locator(selector, has=attributes)
-    #     else:
-    #         return self.page.locator(selector)
-
-
     def screenshots(self, full_page: bool = False, screenshot_dir: str = None,
                     screenshot_name: str = None):
         """

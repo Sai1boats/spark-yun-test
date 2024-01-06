@@ -3,7 +3,7 @@ from playwright.sync_api import Locator
 from Pages.BasePage import BasePage
 
 
-class Login(BasePage):
+class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 

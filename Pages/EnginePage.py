@@ -1,7 +1,7 @@
-from Pages.LoginPage import Login
+from Pages.LoginPage import LoginPage
 
 
-class Engine(Login):
+class EnginePage(LoginPage):
     def __init__(self, page):
         super().__init__(page)
 
