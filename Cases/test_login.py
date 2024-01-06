@@ -5,7 +5,7 @@ import pytest
 import yaml
 from playwright.sync_api import sync_playwright, expect
 
-from Pages.LoginPage import Login
+from Pages.LoginPage import LoginPage
 
 with open('../test_data.yaml', 'r') as file:
     test_data = yaml.safe_load(file)
@@ -25,7 +25,7 @@ def browser_init():
 @pytest.fixture(scope='function')
 def setup(browser_init):
     page = browser_init.new_page()
-    login = Login(page)
+    login = LoginPage(page)
     login.goto_homepage(test_data['url'])
     login.wait(1)
     yield login
@@ -60,7 +60,7 @@ class TestLoginPage:
         self.p.input_password(password)
         self.p.wait(3)
         self.p.click_login_button()
-        expect(self.p.locator_wrong_toast()).to_be_visible(timeout=2000)
+        expect(self.p.locator_login_toast()).to_contain_text("账号或者密码不正确")
 
     @allure.title("测试错误用户名登录账户")
     def test_login_wrong_username(self, setup):
@@ -69,4 +69,4 @@ class TestLoginPage:
         self.p.input_password('toast_test_bbb')
         self.p.wait(3)
         self.p.click_login_button()
-        expect(self.p.locator_wrong_toast()).to_be_visible(timeout=2000)  # print the context of toast /n print(locator.inner_text())
+        expect(self.p.locator_login_toast()).to_contain_text("账号或者密码不正确")  # print the context of toast /n print(locator.inner_text())

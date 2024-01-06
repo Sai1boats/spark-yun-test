@@ -28,6 +28,6 @@ class LoginPage(BasePage):
                                     has_text='请输入密码')
 
 
-    def locator_wrong_toast(self) -> Locator:
-        return self.page.locator('xpath=/html/body/div[4]', has_text='账号或者密码不正确')
+    def locator_login_toast(self) -> Locator:
+        return self.page.locator('xpath=/html/body/div[4]')
 

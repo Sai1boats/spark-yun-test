@@ -1,40 +1,9 @@
-#front sever url
+#前端首页地址
 url: 127.0.0.1:9998
-#admin username and password
+#管理员账号
 admin_user: admin
 admin_passwd: admin123
-#tester username and password
+#测试or普通用户账号
 test_user: Sailboats
 test_passwd: welcome1
-#engine connection information
-engine_host:
-engine_username: zhiqingyun
-engine_type: 令牌
-engine_password: |+
-  -----BEGIN RSA PRIVATE KEY-----
-  MIIEpQIBAAKCAQEAx1WwCYw4uGHi6map+YPBwURCMfbVdSKkzI1lNk6gQ0mCfdp+
-  MFQJn9ps0mDFWUfQ9rQRBQ3V0gzsMD/lcoRgS72dDkWvFl/FR1IitixyOHx9yTqt
-  ogyehgrWolCRKhlUZB0rV7Dx015BY3DMwFM8gB/H9lEkrrGxURKqN0VMibC3tGJG
-  CegznBydjNBpKW//nDKBSyXC3SAJACpSNmsefOxxI8EGSFcj/GNm1PSAxlPViQL2
-  bg7wXVg5VsZRXtPaYgyTB9E4D9fIUcLbaP+JabIGVhK/gP1XE9bvccURfaqzsqfq
-  qzRdISdfA3KCenTUlh+CGEgP1A0F4kYb4XWzNQIDAQABAoIBAAL387cwr2ePjaGQ
-  BdgBblFCgvnbgzJLYcjqEifM4/YckiTtrBNsLPiEeDpp1oaN2z7RT6+TlSubpajS
-  Ssh50DVQjZY403Kx2m5Fet7bqpfMwtLMXOmc5n94idnA+Wh3GBqllI+pwvAy5yZj
-  96illLETyBaS/sjbPJjIfmB0V791K4iU+W3IrjhnOjkeh38wbTHA0StusmvsW8WI
-  FelGgT6stxEqC4CvNWWnjjLk3d5urxy/fGsO/mir6d5hBBCQ5FIbxHoXykBcxlbX
-  Om7IYhEQYfehx+tKIF+nMN7r5ANZLjWFLnV5lAoLpU/rcFha6P4fvvVEhaweLmHO
-  brj8O8ECgYEA8iOWm2ULJTkhQ+74w0J4qw4Kmd2OxkTBO4y5NiuRvo+MpxSh3ybe
-  7pwKuU2RfjOi7UDZrtOR1Idgwt6YZdR2echUVD8tTsypTRGa5BZICqRPEc6GChvD
-  pyOEhJD30vAmTArhabrq+WUPmzDbSWpCRxxfJ+Qbt/bjIhv+si/U0v8CgYEA0r7T
-  iFjE7IdSytZM/qG9hlgevnHSTb519uwikTGPRWNq35lSY0RuOEwpgNIfqZOYXvz8
-  6IKDBNd0srh40fH7kiyU8bSixYzhLsLkfAqiSe62GDKhz1gZQEJFsJ6A7wPC8nzr
-  Ov73KAe3aKhtL6y4foQMqKBgB/VVTLIhgO20ncsCgYEAh+BAm2LQJkswx5ZKMggS
-  /qoaeM1DWS8r3+bP5/37Axw6qWeCjl6ZqvwVaHaGtnLzcn95qAlBRCnTuoZ+rmXT
-  NfOcnsn0+ssOFhlS+bsnIhGh7TQfM3zxBdGAg4N2DgCE/Rb99v7U7K4xW7zG0SO3
-  nX/mRdRTWaBJRNLA0ezVWLECgYEAhsgYjWkIeKWLY8Ju96MFjTgqYW52K9aVp1ga
-  O3XQxXXx0hNCx83qGANNv9+i9Fc66fUu4p0loiERt4OXcd4rIK92iqcWOvYAxmFK
-  s7IxXMtYll07c1pKu/gmjfCxUSu8sE0IPHD4LRfSSxL80bLLQ868MdRv1mcnKKf8
-  GXLtQsUCgYEA55x98S2Pd0I2oA2ePDHJ/qzu+j7tbUoPHK2+7JLzmAXvk3aKm5mo
-  n1PKxCyxwMSYynjGLIJHlO65hgV1eRF15NHPPEQNHcd213uzreuDA5n3tR9S2GgH
-  ngtXbe2YOMS4LTVFj38fxqszU7kJ9YTTspvfgSAXRXbspVDYfTTadnU=
-  -----END RSA PRIVATE KEY-----
+#计算引擎节点信息

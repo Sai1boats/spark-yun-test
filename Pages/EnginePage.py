@@ -55,7 +55,7 @@ class EnginePage(LoginPage):
 
     # 计算引擎详细页
     def locator_add_node_button(self):
-        return self.page.locator('xpath=/html/body/div[1]/div/div[2]/div[2]/div[1]/button/span')
+        return self.page.locator('xpath=/html/body/div[1]/div/div[2]/div[2]/div[1]/button')
 
     def locator_add_node_name(self):
         return self.page.locator('xpath=/html/body/div[4]/div/div/div/div/form/div[1]/div/div[1]/div/input')

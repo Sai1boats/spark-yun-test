@@ -5,7 +5,7 @@ import pytest
 import yaml
 from playwright.sync_api import sync_playwright, expect
 
-from Pages.EnginePage import Engine
+from Pages.EnginePage import EnginePage
 
 with open('../test_data.yaml', 'r') as file:
     test_data = yaml.safe_load(file)
@@ -25,7 +25,7 @@ def browser_init():
 @pytest.fixture(scope='function')
 def setup(browser_init):
     page = browser_init.new_page()
-    engine = Engine(page)
+    engine = EnginePage(page)
     engine.goto_homepage(test_data['url'])
     engine.login(test_data['test_user'], test_data['test_passwd'])
     engine.goto_computer_group(test_data['url'])
